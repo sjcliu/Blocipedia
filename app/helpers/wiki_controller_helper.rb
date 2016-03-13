@@ -1,0 +1,2 @@
+module WikiControllerHelper
+end
