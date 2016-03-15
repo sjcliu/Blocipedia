@@ -1,5 +1,6 @@
 class WikisController < ApplicationController
   def index
+    authorize Wiki, :index?
     @wikis = Wiki.all
   end
 

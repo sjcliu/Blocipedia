@@ -7,9 +7,16 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 10.times do
-  User.create!(
+  u = User.create!(
   email: Faker::Internet.email,
   password: Faker::Internet.password
+  )
+
+
+  Wiki.create(
+  title: Faker::Lorem.word,
+  body: Faker::Lorem.paragraph(2, false, 4)
+  user_id: u.id
   )
 end
 
@@ -17,5 +24,6 @@ end
   Wiki.create(
   title: Faker::Lorem.word,
   body: Faker::Lorem.paragraph(2, false, 4)
+  user_id: User.all.sample.id
   )
 end
