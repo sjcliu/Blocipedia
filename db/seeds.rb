@@ -15,7 +15,7 @@
 
   Wiki.create(
   title: Faker::Lorem.word,
-  body: Faker::Lorem.paragraph(2, false, 4)
+  body: Faker::Lorem.paragraph(2, false, 4),
   user_id: u.id
   )
 end
@@ -23,7 +23,7 @@ end
 30.times do
   Wiki.create(
   title: Faker::Lorem.word,
-  body: Faker::Lorem.paragraph(2, false, 4)
+  body: Faker::Lorem.paragraph(2, false, 4),
   user_id: User.all.sample.id
   )
 end

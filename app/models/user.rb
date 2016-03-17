@@ -5,6 +5,13 @@ class User < ActiveRecord::Base
     self.role ||= :standard
   end
 
+  attr_reader :user, :wiki
+
+  # def initialize(user, wiki)
+  #   @user = user
+  #   @wiki = wiki
+  # end
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
@@ -20,16 +27,15 @@ class User < ActiveRecord::Base
    self.role = :premium
    end
 
-   def admin?
-     user.has_role?('Admin')
-   end
+# Makes wikis public when user downgrades from premium to standard
+   def downgrade!
+     self.role = "standard"
+     self.save
 
-   def standard?
-     user.has_role?('Standard')
-   end
+     self.wikis.each do |wiki|
+       wiki.update_attribute(:private, false)
+     end
 
-   def premium?
-     user.has_role?('premium')
    end
 
 end
