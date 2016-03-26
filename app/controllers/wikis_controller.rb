@@ -6,9 +6,6 @@ class WikisController < ApplicationController
 
   def show
     @wiki = Wiki.find(params[:id])
-
-
-    authorize @wiki
   end
 
   def new
@@ -20,6 +17,7 @@ class WikisController < ApplicationController
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
     @wiki.private = params[:wiki][:private]
+    @wiki.user = current_user
 
     if @wiki.save
       flash[:notice] = "Wiki was saved"
@@ -38,7 +36,8 @@ class WikisController < ApplicationController
     @wiki = Wiki.find(params[:id])
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
-    @wiki.private = params[:wiki][:private]
+    @wiki.private = params[:wiki][:private] if params[:wiki][:private]
+  
 
     if @wiki.save
       flash[:notice] = "Wiki was updated."

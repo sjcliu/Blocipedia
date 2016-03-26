@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317132527) do
+ActiveRecord::Schema.define(version: 20160321131031) do
+
+  create_table "collaborators", force: :cascade do |t|
+    t.integer "wiki_id"
+    t.integer "user_id"
+  end
 
   create_table "models", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

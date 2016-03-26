@@ -1,28 +1,19 @@
 class UsersController < ApplicationController
-  def initialize(user, wiki)
-    @user = user
-    @wiki = wiki
-  end
-
-  def set_as_admin
-  self.role = :admin
-  end
-
-  def set_as_standard
-  self.role = :standard
-  end
-
-  def set_as_premium
-  self.role = :premium
-  end
-
   # Makes wikis public when user downgrades from premium to standard
-  def downgrade!
-    self.role = "standard"
-    self.save
+  def downgrade
+    @user = current_user
+    @user.update_attributes(role: 'standard')
 
-    self.wikis.each do |wiki|
-      wiki.update_attribute(:private, false)
+    if @user.save
+        flash[:notice] = "Account downgraded to 'Standard'"
+        redirect_to wikis_path
+
+        @user.wikis.each do |wiki|
+          wiki.update_attribute(:private, false)
+          end
+    else
+        flash[:error] = "Could not downgrade your account"
     end
   end
+
 end

@@ -35,4 +35,4 @@
 <h3>Membership</h3>
 
 <%= button_to "Upgrade Account to Premium", new_charge_path, data: { confirm: "Are you sure?" }, method: :get %></p>
-<%= button_to "Downgrade Account to Standard", controller: :application, action: :downgrade! %>
+<%= button_to "Downgrade Account to Standard", downgrade_path, method: :put %>

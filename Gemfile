@@ -5,6 +5,7 @@ source 'https://rubygems.org'
  gem 'bootstrap-sass'
  gem 'faker'
  gem 'stripe'
+ gem 'redcarpet'
 
  group :production do
    gem 'pg'
