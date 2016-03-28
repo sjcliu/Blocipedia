@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_many :wikis
   has_many :collaborators
   has_many :collaborator_wikis, through: :collaborators, source: :wiki
-  enum role: [:admin, :standard, :premium]
+  enum role: [:standard,:admin, :premium]
 
   after_initialize do
     self.role ||= :standard

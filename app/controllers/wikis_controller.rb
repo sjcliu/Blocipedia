@@ -21,7 +21,7 @@ class WikisController < ApplicationController
     @wiki = Wiki.new
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
-    @wiki.private = params[:wiki][:private]
+    @wiki.public = params[:wiki][:public]
     @wiki.user = current_user
 
     if @wiki.save
@@ -41,7 +41,7 @@ class WikisController < ApplicationController
     @wiki = Wiki.find(params[:id])
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
-    @wiki.private = params[:wiki][:private] if params[:wiki][:private]
+    @wiki.public = params[:wiki][:public] if params[:wiki][:public]
 
 
     if @wiki.save
