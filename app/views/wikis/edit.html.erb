@@ -7,6 +7,7 @@
       <li>Make it Informative</li>
       <li>Back up all points with facts</li>
       <li>Reference work correctly</li>
+      
     </ul>
   </div>
   <div class="col-md-8">
@@ -28,6 +29,11 @@
           <%= f.check_box :public %> Public wiki
           <% end %>
         </div>
+        <% if current_user && (current_user.admin? || current_user.premium?) %>
+        <div class="form-group">
+          <%= link_to "Manage Collaborators", collaborators_path(wiki_id: @wiki.id) %>
+        </div>
+        <% end %>
         <% end %>
     <% end %>
   </div>

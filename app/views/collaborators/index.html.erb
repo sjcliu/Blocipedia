@@ -1,16 +1,32 @@
-<h1>Collaborators</h1>
+<h1>Add Collaborators to wiki</h1>
 
 
 <table class="table table-bordered">
   <tbody>
-<% @user.each do |user| %>
+<% @users.each do |user| %>
 
       <tr>
-        <td class="col-md-4"><%= "User: #{wiki.user.email}" %></td>
-        <td class="col-md-1"><%= link_to give access%></td>
+        <td class="col-md-4"><%= "User: #{user.email}" %></td>
+        <td class="col-md-1">
+          <% if Collaborator.find_by(user_id: user.id, wiki_id: params[:wiki_id]) %>
+            Is a collaborator.
+          <% else %>
+            Not a collaborator
+          <% end %>
+        </td>
       </tr>
     </div>
 
 <% end %>
 </tbody>
 </table>
+
+<%= form_for @collaborators do |f| %>
+<% if current_user.admin? || current_user.premium? %>
+  <div class="form-group">
+    <%= f.label :collaborator, class: 'checkbox' do %>
+    <%= f.check_box :collaborator%> Collaborator
+    <% end %>
+  </div>
+<% end %>
+<% end %>
