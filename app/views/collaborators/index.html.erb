@@ -9,10 +9,15 @@
         <td class="col-md-4"><%= "User: #{user.email}" %></td>
         <td class="col-md-1">
           <% if Collaborator.find_by(user_id: user.id, wiki_id: params[:wiki_id]) %>
-          <%= link_to "remove collaborator", collaborator_path(user, wiki_id: params[:wiki_id]), method: :delete %>
-            Is a collaborator.
+          <div>
+            <input type="checkbox" class="collaborator-box" checked=true />
+            <a href="/collaborators/<%= user.id %>?wiki_id= <%= params[:wiki_id]%>" data-method="DELETE"> </a>
+          </div>
           <% else %>
-            <%= link_to "Not a collaborator", collaborators_path(user_id: user.id, wiki_id: params[:wiki_id]), method: :post %>
+            <div>
+              <input type="checkbox" class="collaborator-box"/>
+              <a href="/collaborators?user_id=<%= user.id %>&wiki_id= <%= params[:wiki_id]%>" data-method="POST"></a>
+            </div>
           <% end %>
         </td>
       </tr>
@@ -21,3 +26,9 @@
 <% end %>
 </tbody>
 </table>
+
+<script>
+  $(".collaborator-box").click(function(){
+    console.log($(this).parent().find("a").click());
+  })
+</script>
